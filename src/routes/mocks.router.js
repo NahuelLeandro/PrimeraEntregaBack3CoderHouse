@@ -75,8 +75,8 @@
 import express from "express";
 import { generateMockUsers } from "../mocks/users.mock.js";
 import { generateMockPets } from "../mocks/pets.mock.js";
-import { userDAO } from "../dao/User.dao.js";
-import { petDAO } from "../dao/Pet.dao.js";
+import userDAO from "../dao/userDao.js";
+import petDAO from "../dao/petDao.js";
 
 
 const router = express.Router();

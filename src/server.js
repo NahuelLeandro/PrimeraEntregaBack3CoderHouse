@@ -15,6 +15,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MongoDB
+
+if (!process.env.MONGO_URI) {
+    console.error("❌ Falta MONGO_URI");
+    process.exit(1);
+}
 connectMongo(process.env.MONGO_URI);
 
 
@@ -22,12 +27,15 @@ connectMongo(process.env.MONGO_URI);
 // Rutas principales
 app.use("/", indexRoutes);
 
+
+
+/*
 // 404 Handler
 app.use((req, res) => {
     console.log("❌ Ruta no encontrada:", req.method, req.url);
     res.status(404).send("Ruta no encontrada");
 });
-
+*/
 
 
 
