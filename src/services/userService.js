@@ -43,7 +43,7 @@ class UserService {
         const updated = await userDAO.updateById(id, data);
 
         if (!updated) {
-            throw new CustomError("Usuario no encontrado", 404);//aca tengo una duda. usuario no encontrado seria un 404 Recurso no existe, pero no actualizado no seria un 409 Conflicto? no se como diferenciarlo, si tengo que hacerlo o si vale la pena.
+            throw new CustomError("Usuario no encontrado", 404);
         }
 
         return updated;
