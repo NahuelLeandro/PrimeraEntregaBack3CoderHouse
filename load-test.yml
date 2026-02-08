@@ -1,0 +1,28 @@
+config:
+  target: "http://localhost:8080"
+  phases:
+    - duration: 30
+      arrivalRate: 5
+      name: "Carga suave"
+    - duration: 30
+      arrivalRate: 20
+      name: "Carga media"
+    - duration: 30
+      arrivalRate: 50
+      name: "Estrés fuerte"
+
+scenarios:
+  - name: "Operacion simple"
+    flow:
+      - get:
+          url: "/operacionSimple"
+
+  - name: "Operacion compleja bloqueante"
+    flow:
+      - get:
+          url: "/operacionCompleja"
+
+  - name: "Operacion compleja con fork"
+    flow:
+      - get:
+          url: "/operacionComplejaFork"

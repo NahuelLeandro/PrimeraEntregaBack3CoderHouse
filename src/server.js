@@ -50,12 +50,10 @@ debug:5
 */
 const logger = winston.createLogger({
     transports:[
-        new winston.transports.Console({level:"http"})
+        new winston.transports.Console({level:"http"}),
+        new winston.transports.File({filename:'./src/utils/warns.log', level:"warn"})
     ]
 })
-
-
-
 
 // Rutas principales
 app.use("/", indexRoutes);

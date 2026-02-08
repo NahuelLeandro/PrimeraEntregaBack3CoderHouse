@@ -26,6 +26,12 @@ if (cluster.isPrimary) {
     cluster.fork();
   }
 
+  cluster.on('exit' , (worker, code, signal) => {
+    logger.info(`Worker ${worker.process.pid} ha finalizado`);
+    logger.info('Creando un nuevo trabajador...');
+    cluster.fork(); //Crear un nuevo trabajador cuando uno falla
+  })
+
 } else {
   server.listen(PORT, () => {
     logger.info(`✅ Servidor corriendo en http://localhost:${PORT} process: ${process.pid}`);
