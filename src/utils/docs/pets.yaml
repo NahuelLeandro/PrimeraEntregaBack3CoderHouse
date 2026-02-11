@@ -1,0 +1,92 @@
+tags:
+  - name: Pets
+    description: Gestión de mascotas
+
+components:
+  schemas:
+    Pet:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+          example: "Firulais"
+        species:
+          type: string
+          example: "dog"
+        age:
+          type: number
+          example: 4
+        adopted:
+          type: boolean
+          example: true
+        owner:
+          type: string
+          example: "698c26ea3072ca2ef73b3135"
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+
+paths:
+  /api/pets:
+    get:
+      summary: Obtener todas las mascotas
+      tags: [Pets]
+      responses:
+        200:
+          description: Lista de mascotas
+
+    post:
+      summary: Crear mascota
+      tags: [Pets]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Pet"
+      responses:
+        201:
+          description: Mascota creada
+
+  /api/pets/{pid}:
+    get:
+      summary: Obtener mascota por ID
+      tags: [Pets]
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Mascota encontrada
+
+    put:
+      summary: Actualizar mascota
+      tags: [Pets]
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Mascota actualizada
+
+    delete:
+      summary: Eliminar mascota
+      tags: [Pets]
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Mascota eliminada

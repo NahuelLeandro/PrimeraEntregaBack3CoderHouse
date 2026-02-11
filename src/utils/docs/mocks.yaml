@@ -1,0 +1,132 @@
+components:
+  schemas:
+    MockUser:
+      type: object
+      properties:
+        _id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          type: string
+          example: user
+        pets:
+          type: array
+          items:
+            type: string
+
+    MockPet:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        species:
+          type: string
+        age:
+          type: number
+
+paths:
+
+  /api/mocks/mockingusers:
+    get:
+      summary: Genera 50 usuarios mock
+      tags: [Mocks]
+      responses:
+        200:
+          description: Lista de usuarios mock
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MockUser'
+
+  /api/mocks/mockingusers/{qty}:
+    get:
+      summary: Genera N usuarios mock
+      tags: [Mocks]
+      parameters:
+        - name: qty
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: Usuarios generados
+
+  /api/mocks/mockingpets:
+    get:
+      summary: Genera 50 mascotas mock
+      tags: [Mocks]
+      responses:
+        200:
+          description: Lista de mascotas mock
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MockPet'
+
+  /api/mocks/mockingpets/{qty}:
+    get:
+      summary: Genera N mascotas mock
+      tags: [Mocks]
+      parameters:
+        - name: qty
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: Mascotas generadas
+
+  /api/mocks/generateData:
+    post:
+      summary: Genera usuarios y mascotas en base de datos
+      tags: [Mocks]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: number
+                  example: 10
+                pets:
+                  type: number
+                  example: 5
+      responses:
+        201:
+          description: Datos generados correctamente
+
+  /api/mocks/generateData/{users}/{pets}:
+    post:
+      summary: Genera usuarios y mascotas por parámetros
+      tags: [Mocks]
+      parameters:
+        - name: users
+          in: path
+          required: true
+          schema:
+            type: number
+        - name: pets
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        201:
+          description: Datos generados correctamente

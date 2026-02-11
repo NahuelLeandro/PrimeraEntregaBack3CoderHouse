@@ -1,0 +1,86 @@
+tags:
+  - name: Adoptions
+    description: Gestión de adopciones
+
+components:
+  schemas:
+    Adoption:
+      type: object
+      properties:
+        _id:
+          type: string
+        owner:
+          type: string
+          example: "698c26ea3072ca2ef73b3135"
+        pet:
+          type: string
+          example: "698c273c7a4e048f6145c2a5"
+        adoptedAt:
+          type: string
+        status:
+          type: string
+          enum: [active, returned]
+          example: active
+
+paths:
+  /api/adoptions:
+    get:
+      summary: Obtener todas las adopciones
+      tags: [Adoptions]
+      responses:
+        200:
+          description: Lista de adopciones
+
+    post:
+      summary: Crear adopción
+      tags: [Adoptions]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Adoption"
+      responses:
+        201:
+          description: Adopción creada
+
+  /api/adoptions/{aid}:
+    get:
+      summary: Obtener adopción por ID
+      tags: [Adoptions]
+      parameters:
+        - name: aid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Adopción encontrada
+
+    delete:
+      summary: Eliminar adopción
+      tags: [Adoptions]
+      parameters:
+        - name: aid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Adopción eliminada
+
+  /api/adoptions/{aid}/return:
+    put:
+      summary: Devolver mascota
+      tags: [Adoptions]
+      parameters:
+        - name: aid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Mascota devuelta correctamente

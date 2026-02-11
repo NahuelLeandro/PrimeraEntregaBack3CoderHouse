@@ -6,8 +6,15 @@ import indexRoutes from "./routes/indexRoutes.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import compression from "express-compression";
 import winston from "winston";
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerUiExpress from "swagger-ui-express";
+import path from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config({ quiet: true });
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Inicialización
 const app = express();
@@ -55,14 +62,40 @@ const logger = winston.createLogger({
     ]
 })
 
+
+
+//swagger
+const swaggerOptions = {
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "Documentación API Adopciones",
+            version: "1.0.0",
+            description: "API de usuarios y mascotas"
+        }
+    },
+    apis: [path.join(__dirname, "utils/docs/**/*.yaml")]
+};
+
+const specs = swaggerJsdoc(swaggerOptions);
+
+if(!specs.paths){
+    logger.warn("No se esta conectando Swagger");
+}
+
+app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
+
+
+
 // Rutas principales
 app.use("/", indexRoutes);
 
 
 
+
+
+
+
+
 app.use(errorHandler);
-
-
-
-
 export { app, server , logger };

@@ -14,10 +14,12 @@ const userSchema = new mongoose.Schema(
         enum: ["user", "admin"],
         default: "user"
         },
-        pets: {
-        type: Array,
-        default: []
-        }
+        pets: [
+            {
+                type: mongoose.SchemaTypes.ObjectId,
+                ref: "Pet"
+            }
+        ]
     },
     { timestamps: true }
 );

@@ -4,7 +4,16 @@ const petSchema = new mongoose.Schema(
     {
         name: String,
         species: String,
-        age: Number
+        age: Number,
+        adopted: {
+        type: Boolean,
+        default: false
+        },
+        owner: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "User",
+        default: null
+        }
     },
     { timestamps: true }
 );

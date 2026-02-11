@@ -4,6 +4,7 @@ import { fork } from "child_process"
 
 import userRoutes from "./userRoutes.js"
 import petsRoutes from "./petRoutes.js"
+import adoptionRoutes from "./adoptionRoutes.js"
 
 import mockRouter from "./mocks.router.js";
 
@@ -14,6 +15,7 @@ const router = express.Router();
 router.use("/api/mocks", mockRouter);
 router.use("/api/users", userRoutes);
 router.use("/api/pets", petsRoutes);
+router.use ("/api/adoptions", adoptionRoutes);
 
 
 
